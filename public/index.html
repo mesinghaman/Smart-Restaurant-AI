@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Restaurant Chatbot</title>
+  <style>
+    body { 
+      font-family: sans-serif; 
+      max-width: 600px; 
+      margin: auto; 
+      padding: 2rem; 
+    }
+    input, button { 
+      padding: 0.5rem; 
+      margin-top: 1rem; 
+      width: 100%; 
+    }
+    #chat { 
+      white-space: pre-wrap; 
+      margin-top: 1rem; 
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 6px;
+      min-height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🍽️ Restaurant AI Assistant</h2>
+  <div id="chat"></div>
+  <input type="text" id="userInput" placeholder="Ask me: what's on the menu?" />
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("userInput").value;
+      if (!input) return;
+ 
+      const chatBox = document.getElementById("chat");
+      chatBox.innerHTML += `👤 You: ${input}\n`;
+
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ input })
+        });
+
+        const data = await res.json();
+        chatBox.innerHTML += `🤖 Bot: ${data.output}\n`;
+      } catch (err) {
+        chatBox.innerHTML += `⚠️ Error: ${err.message}\n`;
+      }
+
+      document.getElementById("userInput").value = "";
+    }
+  </script>
+</body>
+</html>
