@@ -37,4 +37,4 @@ cd Smart-Restaurant-AI
 npm install
 
 
-<img width="1873" height="907" alt="image" src="https://github.com/user-attachments/assets/358a43a2-de64-4abd-98a0-6bb70677cbe0" />
+
